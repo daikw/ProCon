@@ -22,7 +22,7 @@ if __name__ == "__main__":
 	name = sys.argv[1]
 	num = sys.argv[2]
 	if len(sys.argv) >= 3:
-		args = sys.argv[2:]
+		args = sys.argv[3:]
 
 	# get configure information
 	json_handler = open('config.json', 'r')
