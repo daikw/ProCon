@@ -13,17 +13,18 @@ def convert(n):
     result = ''
     acm = 0
     digit_num = 0
+    # print('n:', n)
     while n != acm:
-        print(digit_num, acm, result)
+        # print(digit_num, acm, result)
         d = determine_digit(digit_num, acm, n)
-        print('d: ', d)
+        # print('d: ', d)
+
+        # incremental procedure
         acm += d * (-2)**digit_num
         digit_num += 1
         result += str(d)
-        if digit_num > 10:
-            break
 
-    return result
+    return result[::-1]
 
 
 if __name__ == "__main__":
