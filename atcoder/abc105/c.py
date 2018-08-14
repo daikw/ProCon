@@ -14,8 +14,8 @@ def convert(n):
         print(digit_num, acm, result)
         d = determine_digit(digit_num, acm, n)
         print('d: ', d)
+        acm += d * (-2)**digit_num
         digit_num += 1
-        acm += d * 2**digit_num
         result += str(d)
         if digit_num > 10:
             break
