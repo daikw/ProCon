@@ -41,9 +41,8 @@ class Test(unittest.TestCase):
     @staticmethod
     def _convert(test_case):
         n = 0
-        for i, digit in enumerate(test_case):
+        for i, digit in enumerate(test_case[::-1]):
             n += int(digit) * (-2)**i
-
         return n
 
     test_cases = [
