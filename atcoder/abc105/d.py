@@ -14,7 +14,12 @@ def S(): return input()
 
 
 def count_lr(n, m, a):
-    return n
+    count = 0
+    for l in range(n):
+        for r in range(l, n):
+            if not sum(a[l:r+1]) % m:
+                count += 1
+    return count
 
 
 if __name__ == "__main__":
