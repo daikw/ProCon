@@ -7,6 +7,9 @@ def determine_digit(digit_num, acm, n):
 
 
 def convert(n):
+    if n == 0:
+        return '0'
+
     result = ''
     acm = 0
     digit_num = 0
