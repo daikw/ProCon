@@ -1,9 +1,9 @@
 def determine_digit(digit_num, acm, n):
     mod = 2 ** (digit_num + 1)
-    if n % mod == acm % mod:
-        return 0
-    else:
+    if (n - acm) % mod:
         return 1
+    else:
+        return 0
 
 
 def convert(n):
@@ -13,6 +13,7 @@ def convert(n):
     while n != acm:
         print(digit_num, acm, result)
         d = determine_digit(digit_num, acm, n)
+        print('d: ', d)
         digit_num += 1
         acm += d * 2**digit_num
         result += str(d)

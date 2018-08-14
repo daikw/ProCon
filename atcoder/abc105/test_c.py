@@ -29,7 +29,14 @@ class Test(unittest.TestCase):
         eq_(determine_digit(1, 1, 3), 1)
         eq_(determine_digit(1, 1, 5), 0)
         eq_(determine_digit(2, 0, 4), 1)
-        eq_(determine_digit(3, -6, -11), 0)
+        eq_(determine_digit(0, 0, 9), 1)
+        eq_(determine_digit(1, 1, 9), 0)
+        eq_(determine_digit(2, 1, 9), 0)
+        eq_(determine_digit(3, 1, 9), 1)
+        eq_(determine_digit(0, 0, -9), 1)
+        eq_(determine_digit(1, 1, -9), 1)
+        eq_(determine_digit(2, -1, -9), 0)
+        eq_(determine_digit(3, -1, -9), 1)
 
     @staticmethod
     def _convert(test_case):
