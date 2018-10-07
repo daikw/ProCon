@@ -81,3 +81,65 @@ class Prime:
             a, b = b, a % b
         return a
 
+    @staticmethod
+    def f(x, n, seed):
+        """
+        pseudo prime generator
+        :param x:
+        :param n:
+        :param seed:
+        :return: pseudo prime
+        """
+        p = Prime.seed_primes[seed % len(Prime.seed_primes)]
+        return (p * x + seed) % n
+
+    def find_factor(self, n, seed=1):
+        """
+        find one of factor of n
+        this function is based to Pollard's rho algorithm
+
+        see also
+            algorithm: https://en.wikipedia.org/wiki/Pollard%27s_rho_algorithm
+            implementation: https://qiita.com/gushwell/items/561afde2e00bf3380c98
+
+        :param n:
+        :param seed:
+        :return: factor
+        """
+        if self.is_prime(n):
+            return n
+
+        x, y, d = 2, 2, 1
+        count = 0
+        while d == 1:
+            count += 1
+            x = self.f(x, n, seed)
+            y = self.f(self.f(y, n, seed), n, seed)
+            d = self.gcd(abs(x - y), n)
+
+        if d == n:
+            return self.find_factor(n, seed+1)
+        return self.find_factor(d)
+
+    def find_factors(self, n):
+        primes = {}
+        if self.is_prime(n):
+            primes[n] = 1
+            return primes
+
+        while n > 1:
+            factor = self.find_factor(n)
+
+            primes.setdefault(factor, 0)
+            primes[factor] += 1
+
+            n //= factor
+
+        return primes
+
+
+prime = Prime()
+
+if __name__ == '__main__':
+    prime = Prime()
+    assert prime.find_factors(36610051291281) == {653: 1, 593783: 1, 3: 3, 13: 1, 269: 1}
