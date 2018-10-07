@@ -25,6 +25,7 @@ class Prime:
 
     def is_prime_common(self, n):
         if n == 1: return False
+        if n in Prime.seed_primes: return True
         if any(map(lambda x: n % x == 0, self.seed_primes)): return False
 
     def is_prime_brute_force(self, n):
