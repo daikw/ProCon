@@ -49,6 +49,7 @@ class Prime:
         see also
             algorithm: https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
             implementation: https://qiita.com/srtk86/items/609737d50c9ef5f5dc59
+            improvement: https://qiita.com/gushwell/items/ff9ed83ba55350aaa369
 
         :param n:
         :return: boolean
@@ -58,6 +59,8 @@ class Prime:
         while d & 1 == 0:
             d >>= 1
 
+        # use one of these lines / upper is more efficient.
+        witnesses = self.get_witnesses(n)
         witnesses = [random.randint(1, n - 1) for _ in range(100)]
 
         for w in witnesses:
@@ -71,6 +74,28 @@ class Prime:
                 return False
 
         return True
+
+    def get_witnesses(self, num):
+        def _get_range(num):
+            if num < 2047:
+                return 1
+            if num < 1373653:
+                return 2
+            if num < 25326001:
+                return 3
+            if num < 3215031751:
+                return 4
+            if num < 2152302898747:
+                return 5
+            if num < 3474749660383:
+                return 6
+            if num < 341550071728321:
+                return 7
+            if num < 3825123056546413051:
+                return 9
+            return 12
+
+        return self.seed_primes[:_get_range(num)]
 
     def gcd(self, a, b):
         if a < b:
