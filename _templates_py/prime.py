@@ -69,3 +69,12 @@ class Prime:
 
         return True
 
+    def gcd(self, a, b):
+        if a < b:
+            return self.gcd(b, a)
+        if b == 0:
+            return a
+        while b:
+            a, b = b, a % b
+        return a
+
