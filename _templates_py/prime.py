@@ -54,20 +54,20 @@ class Prime:
         :return: boolean
         """
 
-        d = (n - 1) >> 1
+        d = n - 1
         while d & 1 == 0:
             d >>= 1
 
-        for k in range(100):
-            a = random.randint(1, n - 1)
-            t = d
-            y = pow(a, t, n)
+        witnesses = [random.randint(1, n - 1) for _ in range(100)]
 
-            while t != n - 1 and y != 1 and y != n - 1:
+        for w in witnesses:
+            y = pow(w, d, n)
+
+            while d != n - 1 and y != 1 and y != n - 1:
                 y = (y * y) % n
-                t <<= 1
+                d <<= 1
 
-            if y != n - 1 and t & 1 == 0:
+            if y != n - 1 and d & 1 == 0:
                 return False
 
         return True
