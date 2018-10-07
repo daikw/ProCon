@@ -46,7 +46,9 @@ class Prime:
         miller rabin prime test
         use with is_prime_common if you want to skip seed_primes
 
-        see also: https://qiita.com/srtk86/items/609737d50c9ef5f5dc59
+        see also
+            algorithm: https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
+            implementation: https://qiita.com/srtk86/items/609737d50c9ef5f5dc59
 
         :param n:
         :return: boolean
