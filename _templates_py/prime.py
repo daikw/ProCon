@@ -61,7 +61,7 @@ class Prime:
 
         # use one of these lines / upper is more efficient.
         witnesses = self.get_witnesses(n)
-        witnesses = [random.randint(1, n - 1) for _ in range(100)]
+        # witnesses = [random.randint(1, n - 1) for _ in range(100)]
 
         for w in witnesses:
             y = pow(w, d, n)
