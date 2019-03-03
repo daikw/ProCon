@@ -1,15 +1,7 @@
-import math, string, fractions, heapq, re, array, bisect, sys, random, time, copy
 import itertools as it
-import collections as cl
-import functools as ft
+
 
 def LI(): return list(map(int, input().split()))
-def LI_(): return list(map(lambda x: int(x) - 1, input().split()))
-def LF(): return list(map(float, input().split()))
-def LS(): return input().split()
-def I(): return int(input())
-def F(): return float(input())
-def S(): return input()
 
 
 class Piece:
@@ -21,19 +13,32 @@ class Piece:
         self.area = h * w
         self.i = i
 
+    def __lt__(self, other):
+        return (self.area, self.r, self.c) < (other.area, other.r, other.c)
+
 
 class Board:
     def __init__(self, _h, _w):
         self.h, self.w = _h, _w
         self.state = [[0] * _w for _ in range(_h)]
+        self.corners = []
 
     def print_board(self):
-        for row in range(self.h):
-            print(' '.join(str(self.state[row])))
+        for row in self.state:
+            print(' '.join(map(str, row)))
 
-    def set_piece(self, piece, row0, col0):
+    def set_piece(self, piece, coordinate):
+        row0, col0 = coordinate
+        row1, col1 = row0+piece.h, col0+piece.w
+
+        if row1 > self.h or col1 > self.w:
+            return None
+
         for row in range(piece.h):
-            self.state[row0 + row][col0:col0+piece.w] = [piece.i]*piece.w
+            self.state[row0+row][col0:col1] = [piece.i]*piece.w
+
+        corners = [(row0, col1 + 1), (row1 + 1, col0)]
+        return corners
 
     def calc_score(self):
         return sum(list(map(bool, it.chain.from_iterable(self.state))))
@@ -41,18 +46,25 @@ class Board:
 
 if __name__ == "__main__":
     h, w, n = LI()
+    board = Board(h, w)
 
     pieces = []
     for i in range(n):
         h, w, r, c = LI()
-        pieces.append([h, w, r, c, h*w, i])
+        pieces.append(Piece(i+1, h, w, r, c))
 
-    pieces.sort(key=lambda x: x[4], reverse=True)
+    pieces.sort()
 
-    print(pieces)
+    coordinates = [(0, 0)]
+    while bool(coordinates) and bool(pieces):
+        corners = board.set_piece(pieces.pop(), coordinates.pop())
+        if corners:
+            coordinates.extend(corners)
+
+    board.print_board()
 
 
-if True:
+if False:
     b = Board(5, 7)
     p = Piece(1, 3, 5, 1, 3)
 
