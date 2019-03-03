@@ -23,5 +23,12 @@ class FutureMath:
             result = self.lcm(result, el)
         return result
 
+    def divisors(self, n):
+        result = list()
+        for i in range(1, n+1):
+            if n % i == 0:
+                result.append(i)
+        return result
 
-future_math = FutureMath()
+
+fm = FutureMath()
