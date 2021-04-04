@@ -1,0 +1,40 @@
+# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val = 0, _next = nil)
+#         @val = val
+#         @next = _next
+#     end
+# end
+
+# @param {ListNode} head
+# @return {ListNode}
+def delete_duplicates(head)
+    curr = head; blacklist = Set.new
+    until curr.nil? or curr.next.nil?
+        if curr.val == curr.next.val
+            blacklist.add(curr.val)
+        end
+        curr = curr.next
+    end
+
+    curr = head; resp = prev = nil
+    until curr.nil?
+        if blacklist.include?(curr.val)
+            curr = curr.next
+            next
+        end
+
+        if resp.nil?
+            resp = prev = ListNode.new(curr.val) 
+        else
+            prev.next = ListNode.new(curr.val)
+            prev = prev.next
+        end
+
+        curr = curr.next
+    end
+
+    resp
+end
+
