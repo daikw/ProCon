@@ -1,0 +1,33 @@
+# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val)
+#         @val = val
+#         @next = nil
+#     end
+# end
+
+# @param {ListNode} head
+# @return {ListNode}
+def detectCycle(head)
+    detected = false;
+
+    fast = slow = head;
+    until fast.nil?
+        if detected
+            return fast if fast == slow
+            fast = fast.next
+            slow = slow.next
+        else
+            return nil if fast.next.nil?
+            fast = fast.next.next
+            slow = slow.next
+
+            detected = fast == slow
+            slow = head if detected
+        end
+    end
+
+    nil
+end
+
