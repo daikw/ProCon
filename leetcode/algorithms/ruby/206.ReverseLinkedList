@@ -1,0 +1,32 @@
+# Definition for singly-linked list.
+# class ListNode
+#     attr_accessor :val, :next
+#     def initialize(val = 0, _next = nil)
+#         @val = val
+#         @next = _next
+#     end
+# end
+
+# @param {ListNode} head
+# @return {ListNode}
+def reverse_list(head)
+    return nil if head.nil?
+
+    stack = []
+    curr = head
+    until curr.nil?
+        stack.push(curr)
+        curr = curr.next
+    end
+
+    curr = resp = stack.pop
+    until stack.empty?
+        forward = stack.pop
+        curr.next = forward
+        curr = forward
+    end
+    curr.next = nil
+
+    resp
+end
+
